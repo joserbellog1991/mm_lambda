@@ -1,0 +1,224 @@
+service: aws-lamb-rf-node
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: sa-east-1
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:*
+      Resource:
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/ArbitroTable
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/CanchaTable
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/UsuarioTable
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/Test
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/PaykuTable
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/TiendaTable
+        -  arn:aws:dynamodb:sa-east-1:651956861142:table/SubscriptionTable
+        
+
+functions:
+  hello:
+    handler: src/hello.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+  addArbitro:
+   handler: src/addArbitro.addArbitro
+   events:
+    - httpApi:
+         path: /addArbitro
+         method: post
+
+  addSubscription:    
+   handler: src/addSubscription.addSubscription
+   events:
+    - httpApi:
+         path: /addSubscription
+         method: post   
+
+  addTienda:
+   handler: src/addTienda.addTienda
+   events:
+    - httpApi:
+         path: /addTienda
+         method: post       
+  
+  getArbitro:
+   handler: src/getArbitro.getArbitro
+   events:
+    - httpApi:
+        path: /getArbitro
+        method: get
+
+  getTienda:
+   handler: src/getTienda.getTienda
+   events:
+    - httpApi:
+        path: /getTienda
+        method: get
+
+  getArb:
+    handler: src/getArb.getAr
+    events:
+      - httpApi:
+          path: /getArb/{id}
+          method: get
+
+  addCancha:
+    handler: src/addCancha.addCancha
+    events:
+      - httpApi:
+          path: /addCancha
+          method: post   
+
+  addPayku:
+    handler: src/addPayku.addPayku
+    events:
+      - httpApi:
+          path: /addPayku
+          method: post    
+
+  getPayku:
+    handler: src/getPayku.getPayku
+    events:
+      - httpApi:
+          path: /getPayku
+          method: get        
+
+  getCancha:
+   handler: src/getCanchas.getCanchas
+   events:
+    - httpApi:
+        path: /getCanchas
+        method: get
+
+  addUsuario:
+    handler: src/addUsuario.addUsuario
+    events:
+      - httpApi:
+          path: /addUsuario
+          method: post   
+
+  getUsuarios:
+   handler: src/getUsuarios.getUsuarios
+   events:
+    - httpApi:
+        path: /getUsuarios
+        method: get   
+
+  payReturn:
+   handler: src/payReturn.payReturn
+   events:
+    - httpApi:
+        path: /payReturn/{id}
+        method: get 
+
+  looginUsuario:
+   handler: src/loginUsuario.loginUsuario
+   events:
+    - httpApi:
+        path: /loginUsuario
+        method: post   
+
+  getUsuario:
+    handler: src/getUsuario.getUsuario
+    events:
+      - httpApi:
+          path: /getUsuario
+          method: post    
+
+
+resources:
+  Resources:
+    ArbitroTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: ArbitroTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH  
+
+    TiendaTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: TiendaTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH          
+
+    CanchaTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: CanchaTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH  
+    
+    SubscriptionTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: SubscriptionTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH  
+
+    PaykuTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: PaykuTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH 
+
+    Usuarioable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: UsuarioTable
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+               
+    Test:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        TableName: Test
+        BillingMode: PAY_PER_REQUEST
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+          - AttributeName: email
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+          - AttributeName: email
+            KeyType: RANGE
