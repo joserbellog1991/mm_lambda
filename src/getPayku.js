@@ -11,7 +11,7 @@ const fetch = require("node-fetch");
             method: 'GET',
             headers: {
               'Content-Type': 'application/json',
-              'Authorization': 'Bearer tkpu8589372460a1a7e860c33881a91e'
+              'Authorization': 'Bearer tu-tk'
             },
           });
          
