@@ -10,7 +10,7 @@ const fetch = require("node-fetch");
         
   
         let data = {
-          email: "jose.bello@technoloty.com",
+          email: "jose.bello@tdominio.com",
           order: ord,
           subject: "Transferencia desde api",
           amount: monto,
@@ -30,7 +30,7 @@ const fetch = require("node-fetch");
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': 'Bearer tkpu8589372460a1a7e860c33881a91e'
+        'Authorization': 'Bearer tu-token'
       },
       body: JSON.stringify(data)
     });
